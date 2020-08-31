@@ -1,4 +1,4 @@
-# Very lightweight and powerfule Session Manaager
+# Very lightweight and powerful Session Manager
 Was developed using C++20 concepts. Here is a simple API.
 ```
 #include <iostream>
@@ -11,7 +11,7 @@ public: int i = 0;
 int main() {
     SessionManager<DummySession> sess_mgr;
     std::cout << "sessions: " << sess_mgr.count() << '\n';
-    IGNORE_RETURN(sess_mgr.new_session());
+    static_cast<void>(sess_mgr.new_session());
     auto handle1 = sess_mgr.new_session();
     auto handle2 = sess_mgr.new_session();
     auto handle3 = sess_mgr.new_session();
