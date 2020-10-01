@@ -31,11 +31,22 @@ macro(package_add_test_with_libraries TESTNAME FILES LIBRARIES TEST_WORKING_DIRE
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
-set(SESSION_MANAGER_SOURCES
-        ${PROJECT_SOURCE_DIR}/SessionManager/SessionManager.hpp
+set(TEST_SOURCES
+        runtests.cpp
+        tSimpleSignal.cpp
+        tSessionManager.cpp
 )
 
-package_add_test(tsessionmanager tSessionManager.cpp ${SESSION_MANAGER_SOURCES})
-target_include_directories(tsessionmanager PRIVATE ${PROJECT_SOURCE_DIR}/SessionManager)
+set(DEPENDENCY_SOURCES
+        ${PROJECT_SOURCE_DIR}/SessionManager/SessionManager.hpp
+        ${PROJECT_SOURCE_DIR}/SimpleSignal/SimpleSignal.hpp
+)
+
+package_add_test(testall ${TEST_SOURCES} ${DEPENDENCY_SOURCES})
+target_include_directories(testall PRIVATE ${PROJECT_SOURCE_DIR})
+#package_add_test(tsessionmanager tSessionManager.cpp ${SESSION_MANAGER_SOURCES})
+#target_include_directories(tsessionmanager PRIVATE ${PROJECT_SOURCE_DIR}/SessionManager)
+#package_add_test(tsimplesignal tSimpleSignal.cpp ${SIMPLE_SIGNAL_SOURCES})
+#target_include_directories(tsimplesignal PRIVATE ${PROJECT_SOURCE_DIR}/SimpleSignal)
 
 #package_add_test_with_libraries(test1 test1.cpp lib_to_test "${PROJECT_DIR}/european-test-data/")
