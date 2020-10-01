@@ -155,11 +155,11 @@ size_t count_micros(const std::function<void()> &cbf) {
     return duration_cast<microseconds>(steady_clock::now()-start).count();
 }
 
-TEST(SimpleSignal, PerformanceDropLessThan30Percent) {
+TEST(SimpleSignal, PerformanceDropLessThan22Percent) {
     global = 0;
     Signal<decltype(cdummy_cb)> signal(0x3fffff);
     for (uint32_t i = 0; i < 0x3fffff; ++i) IGNORE_RETURN(signal.connect(cdummy_cb));
-    size_t allowed_micros = 1.3f * count_micros([] {
+    size_t allowed_micros = 1.22f * count_micros([] {
         for (uint32_t i = 0; i < 0x3fffff; ++i) cdummy_cb();
     });
     EXPECT_GE(allowed_micros, count_micros([&signal] { signal.emit(); }));

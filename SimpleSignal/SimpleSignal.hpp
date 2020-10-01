@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <string>
 
 namespace Simple {
     constexpr const size_t default_max_callbacks = 1000;
@@ -74,7 +75,7 @@ namespace Simple {
         ~Signal () {
             size_t left = size_;
             void ** cb_ptr = static_cast<void**>(margins_.first);
-            while (cb_ptr < static_cast<void**>(margins_.second)) {
+            while (left && cb_ptr < static_cast<void**>(margins_.second)) {
                 if (*cb_ptr && !is_inside_buff(*cb_ptr)) {
                     delete reinterpret_cast<CbFunction*>(*cb_ptr); --left;
                 }
@@ -116,7 +117,7 @@ namespace Simple {
         void emit (Args&& ...args) const {
             size_t left = size_;
             void ** cb_ptr = static_cast<void**>(margins_.first);
-            while (cb_ptr < static_cast<void**>(margins_.second)) {
+            while (left && cb_ptr < static_cast<void**>(margins_.second)) {
                 if (*cb_ptr && !is_inside_buff(*cb_ptr)) {
                     reinterpret_cast<CbFunction*>(*cb_ptr)->operator()(std::forward<Args>(args)...);
                     --left;
