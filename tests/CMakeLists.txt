@@ -44,6 +44,7 @@ set(DEPENDENCY_SOURCES
 
 package_add_test(testall ${TEST_SOURCES} ${DEPENDENCY_SOURCES})
 target_include_directories(testall PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories(testall PRIVATE ${OPENSSL_INCLUDE_DIR})
 #package_add_test(tsessionmanager tSessionManager.cpp ${SESSION_MANAGER_SOURCES})
 #target_include_directories(tsessionmanager PRIVATE ${PROJECT_SOURCE_DIR}/SessionManager)
 #package_add_test(tsimplesignal tSimpleSignal.cpp ${SIMPLE_SIGNAL_SOURCES})
