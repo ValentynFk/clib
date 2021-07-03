@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(dummy)
 
 set(CMAKE_CXX_STANDARD 20)
-add_compile_options(-Wall -g -O3 -Wextra -pedantic -Werror -fconcepts-diagnostics-depth=3)
+add_compile_options(-Wall -g -O3 -Wextra -pedantic -Werror)
 
 find_package(OpenSSL REQUIRED)
 if(OPENSSL_FOUND)
@@ -24,12 +24,16 @@ if(PACKAGE_TESTS)
     enable_testing()
     include(GoogleTest)
     add_subdirectory(tests)
+    add_subdirectory(benchmarks)
 endif()
 
 #add_subdirectory(contrib/ChaiScript)
+message("OpenSSL include dir: ${OPENSSL_INCLUDE_DIR}")
 
 include_directories(SessionManager)
 include_directories(SimpleSignal)
+include_directories(HPHashMap)
+include_directories(${OPENSSL_INCLUDE_DIR})
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries( ${PROJECT_NAME} PRIVATE Boost::random ${OPENSSL_LIBRARIES} OpenSSL::Crypto OpenSSL::SSL)
 target_compile_features(${PROJECT_NAME} PRIVATE
