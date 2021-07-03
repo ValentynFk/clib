@@ -9,7 +9,8 @@ set(DEPENDENCY_SOURCES
         ${PROJECT_SOURCE_DIR}/SimpleSignal/SimpleSignal.hpp
         )
 
-add_executable(benchmarkall ${BENCH_SOURCES} ${DEPENDENCY_SOURCES})
-target_link_libraries(benchmarkall benchmark)
-target_include_directories(benchmarkall PRIVATE ${PROJECT_SOURCE_DIR})
-target_include_directories(benchmarkall PRIVATE ${OPENSSL_INCLUDE_DIR})
+add_executable(benchall ${BENCH_SOURCES} ${DEPENDENCY_SOURCES})
+target_link_libraries(benchall benchmark)
+set_target_properties(benchall PROPERTIES FOLDER tests)
+target_include_directories(benchall PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories(benchall PRIVATE ${OPENSSL_INCLUDE_DIR})
